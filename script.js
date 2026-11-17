@@ -1,3 +1,6 @@
+let particleNumber = 100;
+let particleSize = 15;
+
 window.addEventListener('load', function(){
     const canvas = document.getElementById('canvas1');
     const ctx = canvas.getContext('2d');
@@ -9,12 +12,18 @@ window.addEventListener('load', function(){
     class Particle{
         constructor(effect){
             this.effect = effect;
-            this.size = 100;
+            this.size = 10;
             this.x = Math.random() * (this.effect.width - this.size);
             this.y = Math.random() * (this.effect.height - this.size);
+            this.vx = Math.random() * 2 - 1;
+            this.vy = Math.random() * 2 - 1;
         }
         draw(context){
             context.fillRect(this.x, this.y, this.size, this.size);
+        }
+        update(){
+            this.x += this.vx;
+            this.y += this.vy;
         }
     }
     class Effect{
@@ -29,7 +38,7 @@ window.addEventListener('load', function(){
             this.y = this.centerY - this.image.height/2;
         }
         init(){
-            for(let i = 0; i<10; i++){
+            for(let i = 0; i<particleNumber; i++){
                 this.particleArray.push(new Particle(this));
             }
             
@@ -38,13 +47,18 @@ window.addEventListener('load', function(){
             this.particleArray.forEach(particle => particle.draw(context));
             context.drawImage(this.image, this.x, this.y)
         }
+        update(){
+            this.particleArray.forEach(particle => particle.update());
+        }
     }
 
     const effect  = new Effect(canvas.width, canvas.height);
     effect.init();
-    effect.draw(ctx);
     function animate(){
-
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+        effect.draw(ctx);
+        effect.update();
+        requestAnimationFrame(animate);
     }
-    
+    animate();
 });
