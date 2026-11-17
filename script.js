@@ -20,11 +20,19 @@ window.addEventListener('load', function(){
         constructor(width, height){
             this.width = width;
             this.height = height;
+            this.particleArray = [];
+        }
+        init(){
+            this.particleArray.push(new Particle());
+        }
+        draw(){
+            this.particleArray.forEach(particle => particle.draw())
         }
     }
 
-    const particle1 = new Particle();
-    particle1.draw();
+    const effect  = new Effect(canvas.width, canvas.height);
+    effect.init();
+    effect.draw();
     function animate(){
 
     }
