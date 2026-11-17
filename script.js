@@ -4,7 +4,7 @@ window.addEventListener('load', function(){
     canvas.width = innerWidth;
     canvas.height = innerHeight
 
-    const image1 = document.getElementById('image1');
+    
 
     class Particle{
         constructor(effect){
@@ -22,6 +22,11 @@ window.addEventListener('load', function(){
             this.width = width;
             this.height = height;
             this.particleArray = [];
+            this.image = document.getElementById('image1');
+            this.centerX = this.width/2;
+            this.centerY = this.height/2;
+            this.x = this.centerX - this.image.width/2;
+            this.y = this.centerY - this.image.height/2;
         }
         init(){
             for(let i = 0; i<10; i++){
@@ -30,7 +35,8 @@ window.addEventListener('load', function(){
             
         }
         draw(context){
-            this.particleArray.forEach(particle => particle.draw(context))
+            this.particleArray.forEach(particle => particle.draw(context));
+            context.drawImage(this.image, this.x, this.y)
         }
     }
 
