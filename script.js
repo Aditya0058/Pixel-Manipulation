@@ -39,8 +39,10 @@ window.addEventListener('load', function(){
             this.x = this.centerX - this.image.width/2;
             this.y = this.centerY - this.image.height/2;
         }
-        init(){
+        init(context){
             context.drawImage(this.image, this.x, this.y)
+            const pixels = context.getImageData(0, 0, this.width, this.height)
+            console.log(pixels)
         }
         draw(context){
             this.particleArray.forEach(particle => particle.draw(context));
@@ -52,12 +54,12 @@ window.addEventListener('load', function(){
     }
 
     const effect  = new Effect(canvas.width, canvas.height);
-    effect.init();
+    effect.init(ctx);
     function animate(){
         ctx.clearRect(0, 0, canvas.width, canvas.height)
         effect.draw(ctx);
         effect.update();
         requestAnimationFrame(animate);
     }
-    animate();
+    // animate();
 });
