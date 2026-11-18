@@ -1,11 +1,13 @@
-let particleNumber = 100;
+// 37:06  - https://youtu.be/vAJEHf92tV0?si=33Fva7qMgvXuOS1C
+
+let particleNumber = 1000;
 let particleSize = 15;
 
 window.addEventListener('load', function(){
     const canvas = document.getElementById('canvas1');
     const ctx = canvas.getContext('2d');
     canvas.width = innerWidth;
-    canvas.height = innerHeight
+    canvas.height = innerHeight;
 
     
 
@@ -38,16 +40,13 @@ window.addEventListener('load', function(){
             this.y = this.centerY - this.image.height/2;
         }
         init(){
-            for(let i = 0; i<particleNumber; i++){
-                this.particleArray.push(new Particle(this));
-            }
-            
+            context.drawImage(this.image, this.x, this.y)
         }
         draw(context){
             this.particleArray.forEach(particle => particle.draw(context));
-            context.drawImage(this.image, this.x, this.y)
         }
         update(){
+            
             this.particleArray.forEach(particle => particle.update());
         }
     }
