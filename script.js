@@ -14,16 +14,19 @@ window.addEventListener('load', function(){
     class Particle{
         constructor(effect, x, y, color){
             this.effect = effect;
-            this.size = 10;
-            this.x = Math.random() * (this.effect.width - this.size);
-            this.y = Math.random() * (this.effect.height - this.size);
+            this.size = 4;
+            // this.x = Math.random() * (this.effect.width - this.size);
+            // this.y = Math.random() * (this.effect.height - this.size);
+            this.x = x;
+            this.y = y;
             this.originX = Math.floor(x);
             this.originY = Math.floor(y);
             this.color = color;
-            this.vx = Math.random() * 2 - 1;
-            this.vy = Math.random() * 2 - 1;
+            this.vx = 0;
+            this.vy = 0;
         }
         draw(context){
+            context.fillStyle = this.color;
             context.fillRect(this.x, this.y, this.size, this.size);
         }
         update(){
@@ -56,7 +59,7 @@ window.addEventListener('load', function(){
                     const color = "rgb(" + red + "," + green + "," + blue + ")";
 
                     if (alpha>0){
-                        this.particleArray.push(new Particle());
+                        this.particleArray.push(new Particle(this, x, y, color));
                     }
                 }
             }
@@ -72,11 +75,12 @@ window.addEventListener('load', function(){
 
     const effect  = new Effect(canvas.width, canvas.height);
     effect.init(ctx);
+    console.log(effect);
     function animate(){
         ctx.clearRect(0, 0, canvas.width, canvas.height)
         effect.draw(ctx);
         effect.update();
         requestAnimationFrame(animate);
     }
-    // animate();
+    animate();
 });
