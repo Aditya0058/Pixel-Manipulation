@@ -1,13 +1,11 @@
 // 37:06  - https://youtu.be/vAJEHf92tV0?si=33Fva7qMgvXuOS1C
 
-let particleNumber = 100000;
-let particleSize = 10;
-
 window.addEventListener('load', function(){
     const canvas = document.getElementById('canvas1');
     const ctx = canvas.getContext('2d');
-    canvas.width = innerWidth*(2/3);
-    canvas.height = innerHeight*(2/3);
+    canvas.width = canvas.clientWidth;
+    canvas.height = canvas.clientHeight;
+    
 
     
 
@@ -69,7 +67,7 @@ window.addEventListener('load', function(){
             this.gap =4; 
             this.mouse = {
                 radius: 3000,
-                x: undefined,
+                x: undefined, 
                 y: undefined
             }
             window.addEventListener("mousemove", event => {
