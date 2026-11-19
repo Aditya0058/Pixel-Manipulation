@@ -1,6 +1,12 @@
+:root{
+    --pixel-font: 'Pixelify Sans', ui-monospace, sans-serif;
+}
+
+
 *{
     padding: 0;
     margin: 0;
+
 }
 
 #canvas1{
@@ -11,8 +17,13 @@
     height: 100%;
 }
 .controls{
+    top: 50px;
     position: absolute;
     z-index: 100;
+    width: 100%;
+    display: flex;
+    justify-items: center;
+    justify-content: space-evenly;
 }
 #image1{
     display: none;
@@ -21,5 +32,6 @@
 .top-bar {
     position: absolute;
     z-index: 100;
+    font-family: var(--pixel-font);
 
 }
