@@ -1,20 +1,20 @@
 // 37:06  - https://youtu.be/vAJEHf92tV0?si=33Fva7qMgvXuOS1C
 
-let particleNumber = 1000;
-let particleSize = 15;
+let particleNumber = 100000;
+let particleSize = 10;
 
 window.addEventListener('load', function(){
     const canvas = document.getElementById('canvas1');
     const ctx = canvas.getContext('2d');
-    canvas.width = innerWidth/2;
-    canvas.height = innerHeight/2;
+    canvas.width = innerWidth*(2/3);
+    canvas.height = innerHeight*(2/3);
 
     
 
     class Particle{
         constructor(effect, x, y, color){
             this.effect = effect;
-            this.size = 4;
+            this.size = 3;
             this.x = Math.random() * (this.effect.width);
             this.y = Math.random() * (this.effect.height);
             // this.x = Math.random() * this.effect.width;
@@ -66,7 +66,7 @@ window.addEventListener('load', function(){
             this.centerY = this.height/2;
             this.x = this.centerX - this.image.width/2;
             this.y = this.centerY - this.image.height/2;
-            this.gap = 5; 
+            this.gap =4; 
             this.mouse = {
                 radius: 3000,
                 x: undefined,
@@ -78,8 +78,11 @@ window.addEventListener('load', function(){
             });
         }
         init(context){
-            context.drawImage(this.image, this.x, this.y)
-            const pixels = context.getImageData(0, 0, this.width, this.height).data
+            const imageWidth = 300;
+            const imageHeight = this.image.height * (imageWidth / this.image.width);
+
+            context.drawImage(this.image, this.x, this.y, imageWidth, imageHeight)
+            const pixels = context.getImageData(-100,-100, this.width, this.height).data
             for(let y = 0; y<=this.height; y += this.gap){
                 for(let x = 0; x<=this.width; x += this.gap){
                     const index = (y*this.width + x) * 4;

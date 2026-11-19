@@ -6,6 +6,7 @@
 #canvas1{
     background-color: blue;
     position: absolute;
+    z-index: 1;
 }
 .controls{
     position: absolute;
@@ -13,4 +14,10 @@
 }
 #image1{
     display: none;
+}
+
+.top-bar {
+    position: absolute;
+    z-index: 100;
+
 }
