@@ -124,4 +124,18 @@ window.addEventListener('load', function(){
     warpBtn.addEventListener("click", function(){
         effect.warp();
     })
+
+    // custom image
+    const imageInput = document.getElementById("imageInput");
+    const preview = document.getElementById("image2");
+    imageInput.addEventListener("click", function(event){
+        if(!file) return;
+
+        const reader = new FileReader();
+        reader.onload = () => {
+            const dataUrl = reader.result();
+            preview.src =dataUrl;
+        }
+        reader.readAsDataURL(file);
+    })
 });
