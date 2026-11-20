@@ -6,7 +6,26 @@ window.addEventListener('load', function(){
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
     
-
+    
+    // custom image
+    const imageInput = document.getElementById("imageInput");
+    const preview = document.getElementById("image2");
+    imageInput.addEventListener("change", function(event){
+        const file = event.target.files[0];
+        if(!file) return;
+    
+        const reader = new FileReader();
+        reader.onload = () => {
+            const dataUrl = reader.result;
+            preview.src = dataUrl;
+            console.log(dataUrl);
+            preview.onload = () => {
+            effect.init(ctx);   // rebuild particles from the new image
+            };
+        };
+    
+        reader.readAsDataURL(file);
+    })
     
 
     class Particle{
@@ -59,12 +78,10 @@ window.addEventListener('load', function(){
             this.width = width;
             this.height = height;
             this.particleArray = [];
-            this.image = document.getElementById('image1');
+            this.image = document.getElementById('image2');
             this.centerX = this.width/2;
             this.centerY = this.height/2;
-            this.x = this.centerX - this.image.width/2;
-            this.y = this.centerY - this.image.height/2;
-            this.gap =4; 
+            this.gap = 4; 
             this.mouse = {
                 radius: 3000,
                 x: undefined, 
@@ -75,26 +92,39 @@ window.addEventListener('load', function(){
                 this.mouse.y = event.y;
             });
         }
-        init(context){
-            const imageWidth = 300;
-            const imageHeight = this.image.height * (imageWidth / this.image.width);
+        init(context) {
+        this.particleArray = [];
+        if (!this.image.naturalWidth) return;
 
-            context.drawImage(this.image, this.x, this.y, imageWidth, imageHeight)
-            const pixels = context.getImageData(-100,-100, this.width, this.height).data
-            for(let y = 0; y<=this.height; y += this.gap){
-                for(let x = 0; x<=this.width; x += this.gap){
-                    const index = (y*this.width + x) * 4;
-                    const red = pixels[index]
-                    const green = pixels[index+1]
-                    const blue = pixels[index+2]
-                    const alpha = pixels[index+3]
-                    const color = "rgb(" + red + "," + green + "," + blue + ")";
+        // true aspect ratio from the decoded file
+        const imageWidth  = 400;
+        const imageHeight = this.image.naturalHeight * (imageWidth / this.image.naturalWidth);
 
-                    if (alpha>0){
-                        this.particleArray.push(new Particle(this, x, y, color));
-                    }
-                }
+        // top-left corner that makes the image centered on the canvas
+        const drawX = this.centerX - imageWidth  / 2;
+        const drawY = this.centerY - imageHeight / 2;
+
+        context.clearRect(0, 0, this.width, this.height);
+        context.drawImage(this.image, drawX, drawY, imageWidth, imageHeight);
+
+        // read from (0,0) so the loop coordinates match the canvas exactly
+        const pixels = context.getImageData(0, 0, this.width, this.height).data;
+
+        for (let y = 0; y < this.height; y += this.gap) {
+            for (let x = 0; x < this.width; x += this.gap) {
+            const index = (y * this.width + x) * 4;
+            const red   = pixels[index];
+            const green = pixels[index + 1];
+            const blue  = pixels[index + 2];
+            const alpha = pixels[index + 3];
+
+            if (alpha > 0) {
+                this.particleArray.push(
+                new Particle(this, x, y, `rgb(${red},${green},${blue})`)
+                );
             }
+            }
+        }
         }
         draw(context){
             this.particleArray.forEach(particle => particle.draw(context));
@@ -125,20 +155,4 @@ window.addEventListener('load', function(){
         effect.warp();
     })
 
-    // custom image
-    const imageInput = document.getElementById("imageInput");
-    const preview = document.getElementById("image2");
-    imageInput.addEventListener("change", function(event){
-        const file = event.target.files[0];
-        if(!file) return;
-
-        const reader = new FileReader();
-        reader.onload = () => {
-            const dataUrl = reader.result;
-            preview.src = dataUrl;
-            console.log(dataUrl);
-        };
-
-        reader.readAsDataURL(file);
-    })
 });
