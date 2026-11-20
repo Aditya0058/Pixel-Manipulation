@@ -128,14 +128,17 @@ window.addEventListener('load', function(){
     // custom image
     const imageInput = document.getElementById("imageInput");
     const preview = document.getElementById("image2");
-    imageInput.addEventListener("click", function(event){
+    imageInput.addEventListener("change", function(event){
+        const file = event.target.files[0];
         if(!file) return;
 
         const reader = new FileReader();
         reader.onload = () => {
-            const dataUrl = reader.result();
-            preview.src =dataUrl;
-        }
+            const dataUrl = reader.result;
+            preview.src = dataUrl;
+            console.log(dataUrl);
+        };
+
         reader.readAsDataURL(file);
     })
 });
