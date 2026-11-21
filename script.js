@@ -158,42 +158,82 @@ window.addEventListener('load', function(){
 
     
     // slider function
-    const thumb = document.getElementById('thumb');
-    const track = document.getElementById('track')
-    
-    let isDragging = false;
-    function updateSlider(ClientX){
-        const rect = track.getBoundingClientRect();
+    const slider = document.querySelectorAll('.slider');
+    slider.forEach((slider) => {
+
+        const thumb = slider.querySelector('.thumb');
+        const track = slider.querySelector('.track');
+        const controlType = slider.dataset.control;
         
-        let mousePostion = ClientX - rect.left; 
-    
-        if(mousePostion < 0){
-            mousePostion = 0;
-        } 
-        if(mousePostion > rect.width){
-            mousePostion = rect.width - 15;
-        }
+        let isDragging = false;
+        function updateSlider(ClientX){
+            const rect = track.getBoundingClientRect();
+            
+            let mousePostion = ClientX - rect.left; 
         
-        const percentage = (mousePostion/rect.width)*100;
+            if(mousePostion < 0){
+                mousePostion = 0;
+            } 
+            if(mousePostion > rect.width){
+                mousePostion = rect.width - 15;
+            }
+            
+            const percentage = (mousePostion/rect.width)*100;
+            
+            thumb.style.left = percentage + '%';
+
+            const ratio = percentage / 100;
+
+            // if (controlType === 'velocity') {
+            // // Map ratio to ease speed (e.g., 0.01 to 0.25)
+            // const newEase = 0.001 + ratio * 0.9;
+            // effect.particleArray.forEach((p) => (p.ease = newEase));
+            // } else if (controlType === 'force') {
+            // // Map ratio to mouse repulsion radius (e.g., 500 to 15000)
+            // effect.mouse.radius = 50 + ratio * 55500;
+            // }
+            if (controlType === 'velocity') {
+                const newEase = 0.01 + ratio * 0.24;
+                effect.particleArray.forEach((p) => (p.ease = newEase));
+
+            } else if (controlType === 'force') {
+                effect.mouse.radius = 500 + ratio * 14500;
+
+            } else if (controlType === 'friction') {
+                // 0.50 (heavy drag) to 0.98 (super bouncy/floaty)
+                const newFriction = 0.1 + ratio * 0.9;
+                effect.particleArray.forEach((p) => (p.friction = newFriction));
+
+            } else if (controlType === 'size') {
+                // 1px dots to 8px squares
+                const newSize = 1 + ratio * 7;
+                effect.particleArray.forEach((p) => (p.size = newSize));
+
+            } else if (controlType === 'gap') {
+                // Map to whole numbers between 2 and 10 (avoid decimals for performance)
+                const newGap = Math.round(10 - ratio * 8); 
+                if (effect.gap !== newGap) {
+                    effect.gap = newGap;
+                    effect.init(ctx); // Rebuild grid with new resolution
+                }
+            }
+        };
+        thumb.addEventListener("mousedown", (e) => {
+            isDragging = true;
+            track.classList.add('dragging');
+            updateSlider(e.clientX);
+        });
         
-        thumb.style.left = percentage + '%';
-        
-    };
-    thumb.addEventListener("mousedown", (e) => {
-        isDragging = true;
-        track.classList.add('dragging');
-        updateSlider(e.clientX);
-    });
-    
-    document.addEventListener("mousemove", (e) => {
-        if(isDragging !== true) return;
-        updateSlider(e.clientX);
-    });
-    document.addEventListener("mouseup", () =>{
-        if(isDragging !== true) return;
-        isDragging = false;
-        track.classList.remove("dragging");
-    });
+        document.addEventListener("mousemove", (e) => {
+            if(isDragging !== true) return;
+            updateSlider(e.clientX);
+        });
+        document.addEventListener("mouseup", () =>{
+            if(isDragging !== true) return;
+            isDragging = false;
+            track.classList.remove("dragging");
+        });
+    })
 
 
 

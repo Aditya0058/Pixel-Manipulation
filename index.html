@@ -35,29 +35,39 @@
         <label for="imageInput" class="upload-btn">
             <span class="upload-text">Upload Image</span>
         </label>
-        <div class="slider velocity">
-            <div class="slider-min-max-value">
-                <span class="min-value">1</span>
-                <span class="max-value">10</span>
-            </div>
-            <div class="track" id="track">
-                <div class="fill" id="fill"></div>  
-                <div class="thumb" id="thumb"></div>
-            </div>
+        
+        <div class="slider velocity" data-control="velocity">
             <div class="slider-text">Velocity</div>
+            <div class="track">
+                <div class="thumb"></div>
+            </div>
+            <div class="slider-min-max-value"><span>Slow</span><span>Fast</span></div>
         </div>
-        <div class="slider force">
-            <div class="slider-min-max-value">
-                <span class="min-value">1</span>
-                <span class="max-value">10</span>
-            </div>
-            <div class="track" id="track">
-                <div class="fill" id="fill"></div>
-                <div class="thumb" id="thumb"></div>
-            </div>
+        <div class="slider force" data-control="force">
             <div class="slider-text">Force</div>
+            <div class="track">
+                <div class="thumb"></div>
+            </div>
+            <div class="slider-min-max-value"><span>Low</span><span>High</span></div>
+        </div>
+        <div class="slider friction" data-control="friction">
+            <div class="slider-text">Friction</div>
+            <div class="track">
+                <div class="thumb"></div>
+            </div>
+            <div class="slider-min-max-value"><span>Low</span><span>High</span></div>
+        </div>
+        <div class="slider size" data-control="size">
+            <div class="slider-text">Size</div>
+            <div class="track">
+                <div class="thumb"></div>
+            </div>
+            <div class="slider-min-max-value"><span>Low</span><span>High</span></div>
         </div>
     </div>
+    
+
+
     <script src="script.js"></script>
 </body>
 </html>
