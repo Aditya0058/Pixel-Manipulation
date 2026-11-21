@@ -77,6 +77,7 @@
 }
 
 .top-bar {
+    padding: 20px;
     position: absolute;
     z-index: 100;
     font-family: var(--pixel-font);
@@ -115,4 +116,46 @@
 body{
     width: 100vw;
     height: 100vh;
+   
+}
+.bottom-controls{
+    position: absolute;
+    height: 20vh;
+    width: 100vw;
+    z-index: 100;
+    margin-top: 78vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+}
+.slider .track {
+    background-color: #46514d;
+    width: 200px;
+    height: 12px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+}
+.slider .fill{
+    width: 15px;
+    height: 15px;
+    background-color: antiquewhite;
+    border-radius: 15px;
+}
+.slider .fill:hover{
+    width: 20px;
+    height: 20px;
+}
+.slider .slider-text{
+    justify-self: center;
+    padding: 5px;
+    font-family: var(--pixel-font);
+    font-size: 15px;
+}
+.slider .slider-min-max-value{
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+    font-family: var(--pixel-font);
 }
