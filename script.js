@@ -155,4 +155,49 @@ window.addEventListener('load', function(){
         effect.warp();
     })
 
+
+    
+    // slider function
+    const thumb = document.getElementById('thumb');
+    const track = document.getElementById('track')
+    
+    let isDragging = false;
+    function updateSlider(ClientX){
+        const rect = track.getBoundingClientRect();
+        
+        let mousePostion = ClientX - rect.left; 
+    
+        if(mousePostion < 0){
+            mousePostion = 0;
+        } 
+        if(mousePostion > rect.width){
+            mousePostion = rect.width - 15;
+        }
+        
+        const percentage = (mousePostion/rect.width)*100;
+        
+        thumb.style.left = percentage + '%';
+        
+    };
+    thumb.addEventListener("mousedown", (e) => {
+        isDragging = true;
+        track.classList.add('dragging');
+        updateSlider(e.clientX);
+    });
+    
+    document.addEventListener("mousemove", (e) => {
+        if(isDragging !== true) return;
+        updateSlider(e.clientX);
+    });
+    document.addEventListener("mouseup", () =>{
+        if(isDragging !== true) return;
+        isDragging = false;
+        track.classList.remove("dragging");
+    });
+
+
+
+
 });
+
+

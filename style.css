@@ -130,22 +130,26 @@ body{
 
 }
 .slider .track {
-    background-color: #46514d;
+    background-color: antiquewhite;
     width: 200px;
     height: 12px;
     border-radius: 10px;
     display: flex;
     align-items: center;
+    user-select: none;
+    position: relative;
 }
-.slider .fill{
+.slider .thumb{
+    position: absolute;
     width: 15px;
     height: 15px;
-    background-color: antiquewhite;
+    background-color: #A0FFD6;
+    border: solid 3px black;
     border-radius: 15px;
+    
 }
-.slider .fill:hover{
-    width: 20px;
-    height: 20px;
+.slider .thumb:hover{
+    transform: scale(1.2);
 }
 .slider .slider-text{
     justify-self: center;
@@ -158,4 +162,5 @@ body{
     justify-content: space-between;
     padding: 5px;
     font-family: var(--pixel-font);
+    
 }
