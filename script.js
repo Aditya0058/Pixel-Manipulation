@@ -240,6 +240,7 @@ window.addEventListener('load', function(){
     const changeBG = document.getElementById("change-background");
     const sliderText = document.querySelectorAll(".slider-text");
     const sliderMinMaxValue = document.querySelectorAll(".slider-min-max-value");
+    const heading = document.querySelector(".heading");
 
     changeBG.addEventListener("click", () => {
         if (canvas.style.backgroundColor === "black") {
@@ -250,6 +251,7 @@ window.addEventListener('load', function(){
             sliderMinMaxValue.forEach(el => {
                 el.style.color = 'black';
             })
+            heading.style.color = 'balck';
 
         } else { 
             canvas.style.backgroundColor = "black";
@@ -259,6 +261,7 @@ window.addEventListener('load', function(){
             sliderMinMaxValue.forEach(el => {
                 el.style.color = 'white';
             })
+            heading.style.color = 'white';
         }
     });
 
