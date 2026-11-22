@@ -81,6 +81,7 @@
     position: absolute;
     z-index: 100;
     font-family: var(--pixel-font);
+    text-decoration-line: underline;
 
 }
 .controls button{
