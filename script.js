@@ -193,11 +193,11 @@ window.addEventListener('load', function(){
             // effect.mouse.radius = 50 + ratio * 55500;
             // }
             if (controlType === 'velocity') {
-                const newEase = 0.01 + ratio * 0.24;
+                const newEase = 0.001 + ratio * 0.9;
                 effect.particleArray.forEach((p) => (p.ease = newEase));
 
             } else if (controlType === 'force') {
-                effect.mouse.radius = 500 + ratio * 14500;
+                effect.mouse.radius = 50 + ratio * 55500;
 
             } else if (controlType === 'friction') {
                 // 0.50 (heavy drag) to 0.98 (super bouncy/floaty)
