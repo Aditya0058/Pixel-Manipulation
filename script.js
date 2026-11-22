@@ -202,13 +202,13 @@ window.addEventListener('load', function(){
             } else if (controlType === 'friction') {
                 // 0.50 (heavy drag) to 0.98 (super bouncy/floaty)
                 const newFriction = 0.1 + ratio * 0.9;
-                effect.particleArray.forEach((p) => (p.friction = newFriction));
+                effect.particleArray.forEach((p) => (p.friction = newFriction)); 
 
             } else if (controlType === 'size') {
                 // 1px dots to 8px squares
                 const newSize = 1 + ratio * 7;
                 effect.particleArray.forEach((p) => (p.size = newSize));
-
+ 
             } else if (controlType === 'gap') {
                 // Map to whole numbers between 2 and 10 (avoid decimals for performance)
                 const newGap = Math.round(10 - ratio * 8); 
@@ -236,7 +236,31 @@ window.addEventListener('load', function(){
     })
 
 
+    // changing the background color of canvas
+    const changeBG = document.getElementById("change-background");
+    const sliderText = document.querySelectorAll(".slider-text");
+    const sliderMinMaxValue = document.querySelectorAll(".slider-min-max-value");
 
+    changeBG.addEventListener("click", () => {
+        if (canvas.style.backgroundColor === "black") {
+            canvas.style.backgroundColor = "blue";
+            sliderText.forEach( el => {
+                el.style.color = "black";
+            });
+            sliderMinMaxValue.forEach(el => {
+                el.style.color = 'black';
+            })
+
+        } else { 
+            canvas.style.backgroundColor = "black";
+            sliderText.forEach( el => { 
+                el.style.color = "white";
+            });
+            sliderMinMaxValue.forEach(el => {
+                el.style.color = 'white';
+            })
+        }
+    });
 
 });
 
